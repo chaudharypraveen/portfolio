@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praveen Chaudhary | Android Developer</title>
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --accent: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dark .card-hover {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+        }
+        
+        .skill-badge {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-badge:hover {
+            transform: scale(1.05);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+        
+        .dark .timeline-item::before {
+            border: 4px solid #1e293b;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 29px;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+            opacity: 0.3;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #334155;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        .wave {
+            animation-name: wave-animation;
+            animation-duration: 2.5s;
+            animation-iteration-count: infinite;
+            transform-origin: 70% 70%;
+            display: inline-block;
+        }
+        
+        @keyframes wave-animation {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(14deg); }
+            20% { transform: rotate(-8deg); }
+            30% { transform: rotate(14deg); }
+            40% { transform: rotate(-4deg); }
+            50% { transform: rotate(10deg); }
+            60% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+        
+        /* Improved accordion transitions */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Add padding to transition */
+            padding-left: 1rem; /* Keep horizontal padding */
+            padding-right: 1rem; /* Keep horizontal padding */
+            padding-top: 0; /* Ensure no top padding when closed */
+            padding-bottom: 0; /* Ensure no bottom padding when closed */
+        }
+        
+        .accordion-content.open {
+            max-height: 500px; /* Adjust based on your content */
+            padding-top: 1rem; /* Apply top padding when open */
+            padding-bottom: 1rem; /* Apply bottom padding when open */
+        }
+        
+        .rotate-180 {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Loading animation for images */
+        .image-loading {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            a {
+                text-decoration: none !important;
+                color: black !important;
+            }
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        'primary-dark': '#4f46e5',
+                        secondary: '#f59e0b',
+                        accent: '#10b981',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                        'float': 'floating 3s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased">
+    <!-- Animated Background Elements -->
+    <div class="fixed inset-0 overflow-hidden -z-10 no-print">
+        <div class="absolute top-20 left-10 w-32 h-32 rounded-full bg-primary/10 animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-secondary/10 animate-pulse animation-delay-2000"></div>
+        <div class="absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-accent/10 animate-pulse animation-delay-3000"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 print:py-2">
+        <!-- Floating Action Button -->
+        <div class="fixed bottom-8 right-8 z-50 no-print">
+            <button id="theme-toggle" class="w-14 h-14 rounded-full bg-primary shadow-lg flex items-center justify-center text-white hover:bg-primary-dark transition-all duration-300 transform hover:scale-110">
+                <i class="fas fa-moon text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Header Section -->
+        <header class="text-center py-12 print:py-6">
+            <div class="relative inline-block">
+                <img src="https://placehold.co/160x160/a78bfa/ffffff?text=PC" alt="Profile Picture of Praveen Chaudhary" 
+                    class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white shadow-xl object-cover floating print:border-2 print:shadow-none"
+                    loading="lazy">
+                <span class="absolute bottom-6 right-6 w-8 h-8 rounded-full bg-accent flex items-center justify-center text-white border-4 border-white no-print">
+                    <i class="fas fa-check"></i>
+                </span>
+            </div>
+            <h1 class="text-5xl font-bold text-dark mb-2 dark:text-white print:text-4xl">
+                Praveen <span class="gradient-text">Chaudhary</span>
+            </h1>
+            <div class="inline-block bg-gradient-to-r from-primary to-accent text-transparent bg-clip-text">
+                <p class="text-2xl font-semibold mb-3 dark:text-white print:text-xl">
+                    Android Developer <span class="wave no-print">👋</span>
+                </p>
+            </div>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto dark:text-gray-300 print:text-base print:max-w-xl">
+                Crafting exceptional mobile experiences with Kotlin, Java, and modern Android frameworks
+            </p>
+            <div class="flex justify-center space-x-4 mt-6 print:hidden">
+                <a href="#contact" class="px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-full font-medium shadow-md transition-all duration-300 transform hover:scale-105 flex items-center">
+                    <i class="fas fa-paper-plane mr-2"></i> Contact Me
+                </a>
+                <button id="print-button" class="px-6 py-3 bg-white hover:bg-gray-100 text-dark border border-gray-200 rounded-full font-medium shadow-md transition-all duration-300 transform hover:scale-105 flex items-center dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+                    <i class="fas fa-download mr-2"></i> Download CV
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 print:gap-4">
+            <!-- Left Column -->
+            <div class="lg:col-span-1 space-y-8 print:space-y-4">
+                <!-- About Me Card -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 card-hover dark:bg-gray-800 dark:border-gray-700">
+                    <h2 class="text-2xl font-bold text-dark mb-4 flex items-center dark:text-white print:text-xl">
+                        <i class="fas fa-user-circle text-primary mr-3"></i> About Me
+                    </h2>
+                    <p class="text-gray-600 mb-4 dark:text-gray-300 print:text-sm">
+                        Passionate Android developer with 3+ years of experience creating secure, high-performance mobile applications. I specialize in Kotlin, Java, and modern Android frameworks.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-secondary mr-3"></i>
+                            <span class="text-gray-600 dark:text-gray-300 print:text-sm">Ahmedabad, Gujarat, India</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-secondary mr-3"></i>
+                            <a href="mailto:chaudharypraveen966@gmail.com" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary print:text-sm">chaudharypraveen966@gmail.com</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt text-secondary mr-3"></i>
+                            <a href="tel:+919824595209" class="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary print:text-sm">+91 98245 95209</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Card -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 card-hover dark:bg-gray-800 dark:border-gray-700">
+                    <h2 class="text-2xl font-bold text-dark mb-4 flex items-center dark:text-white print:text-xl">
+                        <i class="fas fa-code text-primary mr-3"></i> Skills
+                    </h2>
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-2 dark:text-gray-300 print:text-sm">Programming</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="skill-badge px-3 py-1 bg-primary/10 text-primary rounded-full text-sm dark:bg-primary/20 print:text-xs">Kotlin</span>
+                                <span class="skill-badge px-3 py-1 bg-primary/10 text-primary rounded-full text-sm dark:bg-primary/20 print:text-xs">Java</span>
+                                <span class="skill-badge px-3 py-1 bg-primary/10 text-primary rounded-full text-sm dark:bg-primary/20 print:text-xs">SQL</span>
+                                <span class="skill-badge px-3 py-1 bg-primary/10 text-primary rounded-full text-sm dark:bg-primary/20 print:text-xs">XML</span>
+                                <span class="skill-badge px-3 py-1 bg-primary/10 text-primary rounded-full text-sm dark:bg-primary/20 print:text-xs">Coroutines</span>
+                                <span class="skill-badge px-3 py-1 bg-primary/10 text-primary rounded-full text-sm dark:bg-primary/20 print:text-xs">RESTful APIs</span>
+                                <span class="skill-badge px-3 py-1 bg-primary/10 text-primary rounded-full text-sm dark:bg-primary/20 print:text-xs">JSON</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-2 dark:text-gray-300 print:text-sm">Frameworks</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">Android Architecture Components (LiveData, ViewModel, Room, Navigation)</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">Firebase (Auth, Firestore, Cloud Messaging, Crashlytics, Analytics)</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">Material Design</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">MLKit</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">Maps SDK</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">Jetpack Compose</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">Retrofit</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">Room</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">WorkManager</span>
+                                <span class="skill-badge px-3 py-1 bg-accent/10 text-accent rounded-full text-sm dark:bg-accent/20 print:text-xs">XMPP</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-2 dark:text-gray-300 print:text-sm">Tools</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Android Studio</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Git</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Figma</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Docker</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Visual Studio</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Meld</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">JADX/GUI</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Gradle</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Bundletool</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">ADB</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">Postman</span>
+                                <span class="skill-badge px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm dark:bg-secondary/20 print:text-xs">CI/CD (GitHub Actions)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Languages Card -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 card-hover dark:bg-gray-800 dark:border-gray-700">
+                    <h2 class="text-2xl font-bold text-dark mb-4 flex items-center dark:text-white print:text-xl">
+                        <i class="fas fa-language text-primary mr-3"></i> Languages
+                    </h2>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-600 dark:text-gray-300 print:text-sm">English</span>
+                                <span class="text-gray-600 dark:text-gray-300 print:text-sm">Professional</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                                <div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-600 dark:text-gray-300 print:text-sm">Hindi</span>
+                                <span class="text-gray-600 dark:text-gray-300 print:text-sm">Native</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                                <div class="bg-primary h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-600 dark:text-gray-300 print:text-sm">Gujarati</span>
+                                <span class="text-gray-600 dark:text-gray-300 print:text-sm">Native</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                                <div class="bg-primary h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="lg:col-span-2 space-y-8 print:space-y-4">
+                <!-- Experience Section -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 card-hover dark:bg-gray-800 dark:border-gray-700">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center dark:text-white print:text-xl">
+                        <i class="fas fa-briefcase text-primary mr-3"></i> Work Experience
+                    </h2>
+                    
+                    <div class="relative pl-16 timeline">
+                        <!-- Vartit Technology -->
+                        <div class="relative mb-10 timeline-item">
+                            <div class="absolute left-0 top-0 w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full dark:bg-primary/20">
+                                <i class="fas fa-laptop-code text-xl"></i>
+                            </div>
+                            <!-- Changed ml-4 to ml-16 to properly clear the icon -->
+                            <div class="ml-16"> 
+                                <!-- Adjusted layout for designation, company, and date -->
+                                <h3 class="text-xl font-bold text-dark dark:text-white print:text-lg mb-1">Software Developer</h3>
+                                <p class="text-primary font-medium dark:text-primary-300 print:text-sm">Vartit Technology Pvt Ltd</p>
+                                <p class="text-gray-500 text-sm dark:text-gray-400 print:text-xs mb-4">Jul 2022 - Present</p>
+                                <p class="text-gray-600 mb-4 dark:text-gray-300 print:text-sm">
+                                    Led development of multiple Android applications with 500K+ downloads, focusing on security, performance, and user experience.
+                                </p>
+                                
+                                <!-- Projects Accordion -->
+                                <div class="space-y-4 print:space-y-2">
+                                    <!-- Calculator Pro+ -->
+                                    <div class="border border-gray-200 rounded-xl overflow-hidden dark:border-gray-700">
+                                        <button class="accordion-btn w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white print:p-2 print:text-sm">
+                                            <span class="font-medium text-dark dark:text-white">Calculator Pro+</span>
+                                            <i class="fas fa-chevron-down transition-transform"></i>
+                                        </button>
+                                        <!-- Removed 'p-4 pt-0' from here, relying on max-height:0 and 'open' class for padding -->
+                                        <div class="accordion-content dark:bg-gray-750 print:p-2 print:text-sm">
+                                            <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                                                <li>Developed a secure Android messaging application that discreetly hides private SMS/MMS conversations behind a fully functional, password-protected calculator interface.</li>
+                                                <li>Implemented robust features including a private contact system, hidden message vault, and customizable spam SMS blocker to enhance user privacy and communication security.</li>
+                                                <li>Integrated multimedia sharing capabilities (photos, audio, video) and free private texting among app users, expanding communication functionalities.</li>
+                                                <li>Designed an intuitive user experience with features like auto-backup, no visible app icon, and auto-close for maximum discretion and data protection.</li>
+                                                <li>Increased app rating from 3.7 to 4.1 through UX improvements</li>
+                                            </ul>
+                                            <div class="mt-3 flex flex-wrap gap-2 print:gap-1">
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">Kotlin</span>
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">Firebase</span>
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">Material Design</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- AdvanceSMS -->
+                                    <div class="border border-gray-200 rounded-xl overflow-hidden dark:border-gray-700">
+                                        <button class="accordion-btn w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white print:p-2 print:text-sm">
+                                            <span class="font-medium text-dark dark:text-white">AdvanceSMS</span>
+                                            <i class="fas fa-chevron-down transition-transform"></i>
+                                        </button>
+                                        <!-- Removed 'p-4 pt-0' from here, relying on max-height:0 and 'open' class for padding -->
+                                        <div class="accordion-content dark:bg-gray-750 print:p-2 print:text-sm">
+                                            <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                                                <li>Built complete SMS/MMS replacement app with dual SIM support</li>
+                                                <li>Integrated OTP detection and smart reply suggestions</li>
+                                                <li>Implemented message scheduling and dark mode</li>
+                                                <li>Implemented robust privacy functionalities, including a dedicated privacy mode and message notification data hiding.</li>
+                                                <li>Designed a customizable UI with a simplified inbox, custom themes, and quick reply options.</li>
+                                                <li>Replaced deprecated APIs with modern Android APIs to ensure application performance, security, and future compatibility.</li>
+                                            </ul>
+                                            <div class="mt-3 flex flex-wrap gap-2 print:gap-1">
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">Java</span>
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">XMPP</span>
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">MLKit</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Tifamily -->
+                                    <div class="border border-gray-200 rounded-xl overflow-hidden dark:border-gray-700">
+                                        <button class="accordion-btn w-full flex justify-between items-center p-4 bg-gray-50 hover:bg-gray-100 transition-colors dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white print:p-2 print:text-sm">
+                                            <span class="font-medium text-dark dark:text-white">Tifamily</span>
+                                            <i class="fas fa-chevron-down transition-transform"></i>
+                                        </button>
+                                        <!-- Removed 'p-4 pt-0' from here, relying on max-height:0 and 'open' class for padding -->
+                                        <div class="accordion-content dark:bg-gray-750 print:p-2 print:text-sm">
+                                            <ul class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
+                                                <li>Redesigned UI leading to 15% increase in user engagement</li>
+                                                <li>Implemented real-time location updates and geofence alerts</li>
+                                                <li>Integrated geofencing with entry/exit alerts.</li>
+                                                <li>Added speed limit notifications for safety.</li>
+                                                <li>Created an emergency panic alert system.</li>
+                                                <li>Built an in-app messenger for text, image, audio, video.</li>
+                                                <li>Provided location history tracking.</li>
+                                                <li>Supported over 10 languages and customizable settings.</li>
+                                            </ul>
+                                            <div class="mt-3 flex flex-wrap gap-2 print:gap-1">
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">Kotlin</span>
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">Firebase</span>
+                                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20 print:text-xxs">Maps API</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Section -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 card-hover dark:bg-gray-800 dark:border-gray-700">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center dark:text-white print:text-xl">
+                        <i class="fas fa-graduation-cap text-primary mr-3"></i> Education
+                    </h2>
+                    
+                    <div class="space-y-6 print:space-y-3">
+                        <!-- Parul University -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary dark:bg-primary/20">
+                                    <i class="fas fa-university text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-dark dark:text-white print:text-lg">B.Tech in Computer Science</h3>
+                                <p class="text-primary font-medium dark:text-primary-300 print:text-sm">Parul University, Vadodara</p>
+                                <p class="text-gray-500 text-sm dark:text-gray-400 print:text-xs">Jul 2018 - Mar 2022</p>
+                                <p class="text-gray-600 mt-2 dark:text-gray-300 print:text-sm">Graduated with honors in Computer Science and Engineering</p>
+                            </div>
+                        </div>
+                        
+                        <!-- School -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary dark:bg-primary/20">
+                                    <i class="fas fa-school text-xl"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-dark dark:text-white print:text-lg">Higher Secondary (Science)</h3>
+                                <p class="text-primary font-medium dark:text-primary-300 print:text-sm">Royal English Medium School</p>
+                                <p class="text-gray-500 text-sm dark:text-gray-400 print:text-xs">Jun 2017 - Apr 2018</p>
+                                <p class="text-gray-600 mt-2 dark:text-gray-300 print:text-sm">Completed with focus on Mathematics and Computer Science</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 card-hover dark:bg-gray-800 dark:border-gray-700 print:hidden">
+                    <h2 class="text-2xl font-bold text-dark mb-6 flex items-center dark:text-white">
+                        <i class="fas fa-project-diagram text-primary mr-3"></i> Personal Projects
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- ManageDice -->
+                        <div class="border border-gray-200 rounded-xl p-5 hover:border-primary transition-all dark:border-gray-700 dark:hover:border-primary">
+                            <div class="w-12 h-12 rounded-lg bg-accent/10 text-accent flex items-center justify-center mb-3 dark:bg-accent/20">
+                                <i class="fas fa-calendar-check text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-dark mb-2 dark:text-white">ManageDice</h3>
+                            <p class="text-gray-600 text-sm mb-3 dark:text-gray-300">Online event management platform with real-time synchronization</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20">Android</span>
+                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20">Firebase</span>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-primary hover:text-primary-dark text-sm font-medium flex items-center dark:text-primary-300 dark:hover:text-primary-200">
+                                    View Project <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Unsafe Image Detection -->
+                        <div class="border border-gray-200 rounded-xl p-5 hover:border-primary transition-all dark:border-gray-700 dark:hover:border-primary">
+                            <div class="w-12 h-12 rounded-lg bg-accent/10 text-accent flex items-center justify-center mb-3 dark:bg-accent/20">
+                                <i class="fas fa-image text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-dark mb-2 dark:text-white">Unsafe Image Detection</h3>
+                            <p class="text-gray-600 text-sm mb-3 dark:text-gray-300">AI-powered image safety assessment using Onnxruntime</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20">MLKit</span>
+                                <span class="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs dark:bg-primary/20">Onnxruntime</span>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-primary hover:text-primary-dark text-sm font-medium flex items-center dark:text-primary-300 dark:hover:text-primary-200">
+                                    View Project <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="bg-gradient-to-r from-primary to-accent rounded-2xl shadow-xl p-8 mt-12 text-white print:hidden">
+            <h2 class="text-3xl font-bold mb-2 print:text-2xl">Let's Work Together!</h2>
+            <p class="text-white/80 mb-6 print:text-sm">Have a project in mind or want to discuss opportunities? Get in touch.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 print:grid-cols-1 print:gap-3">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">Email</h3>
+                        <a href="mailto:chaudharypraveen966@gmail.com" class="text-white/80 hover:text-white print:text-sm">chaudharypraveen966@gmail.com</a>
+                    </div>
+                </div>
+                
+                <a href="https://linkedin.com/in/praveen" target="_blank" rel="noopener noreferrer" class="flex items-center no-underline hover:no-underline">
+                    <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">LinkedIn</h3>
+                        <span class="text-white/80 hover:text-white print:text-sm">linkedin.com/in/praveen</span>
+                    </div>
+                </a>
+                
+                <a href="https://github.com/chaudharypraveen" target="_blank" rel="noopener noreferrer" class="flex items-center no-underline hover:no-underline mt-4">
+                    <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mr-4">
+                        <i class="fab fa-github text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-medium">GitHub</h3>
+                        <span class="text-white/80 hover:text-white print:text-sm">github.com/chaudharypraveen</span>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-white/20 print:hidden">
+                <p class="text-center text-white/80">© <span id="current-year"></span> Praveen Chaudhary. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Improved accordion functionality
+        document.querySelectorAll('.accordion-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                
+                // Toggle the accordion content by adding/removing 'open' class
+                content.classList.toggle('open');
+                
+                // Toggle the icon rotation
+                icon.classList.toggle('rotate-180');
+                
+                // For better accessibility
+                const isExpanded = content.classList.contains('open') ? 'true' : 'false';
+                button.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+        
+        // Theme toggle with localStorage support
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved user preference or use system preference
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            
+            if (document.body.classList.contains('dark')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Print functionality
+        document.getElementById('print-button').addEventListener('click', () => {
+            window.print();
+        });
+        
+        // Lazy loading for images
+        if ('loading' in HTMLImageElement.prototype) {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+                // Check if data-src exists before assigning
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                }
+            });
+        } else {
+            // Fallback for browsers that don't support lazy loading
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+            document.body.appendChild(script);
+        }
+        
+        // Intersection Observer for animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.animate__animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animationClass = entry.target.dataset.animation || entry.target.classList[1];
+                        entry.target.classList.add(animationClass);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        };
+        
+        // Run once when DOM is loaded
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
+    </script>
+</body>
+</html>
